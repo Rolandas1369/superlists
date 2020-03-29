@@ -1,0 +1,7 @@
+*.sqlite3
+*.log
+__pychace__/
+migrations/
+.vscode/
+env/
+.idea/
