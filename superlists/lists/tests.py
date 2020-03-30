@@ -2,7 +2,7 @@ from django.urls import resolve
 from django.test import TestCase
 from .views import home_page
 from django.http import HttpRequest
-
+import pprint
 # Create your tests here.
 class HomePageTest(TestCase):
 
@@ -19,4 +19,11 @@ class HomePageTest(TestCase):
         self.assertIn('<title>To-Do lists</title>', html)
         self.assertTrue(html.endswith('</html>'))
 
-        # check for template usage
+    # this way we are posting to / data={'item_text': 'A new list item'}
+    def test_can_save_POST_request(self):
+
+        response = self.client.post('/', data={'item_text': 'A new list item'})
+        print(str(response.content.decode()))
+        # checks if 'A new list item' in response
+        self.assertIn('A new list item', response.content.decode())
+        self.assertTemplateUsed(response, 'home.html')
